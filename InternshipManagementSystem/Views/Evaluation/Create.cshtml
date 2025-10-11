@@ -1,0 +1,65 @@
+﻿@model Evaluation
+@{
+    ViewData["Title"] = "Create Evaluation";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-star me-2"></i>Create Evaluation</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="InternId" class="form-label">Select Intern</label>
+                        <select asp-for="InternId" class="form-select" asp-items="ViewBag.Interns">
+                            <option value="">-- Select Intern --</option>
+                        </select>
+                        <span asp-validation-for="InternId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Punctuality" class="form-label">Punctuality (1-10)</label>
+                        <input asp-for="Punctuality" type="number" class="form-control" min="1" max="10" />
+                        <span asp-validation-for="Punctuality" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Teamwork" class="form-label">Teamwork (1-10)</label>
+                        <input asp-for="Teamwork" type="number" class="form-control" min="1" max="10" />
+                        <span asp-validation-for="Teamwork" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SkillLevel" class="form-label">Skill Level (1-10)</label>
+                        <input asp-for="SkillLevel" type="number" class="form-control" min="1" max="10" />
+                        <span asp-validation-for="SkillLevel" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Comments" class="form-label">Comments</label>
+                        <textarea asp-for="Comments" class="form-control" rows="4"
+                                  placeholder="Enter evaluation comments..."></textarea>
+                        <span asp-validation-for="Comments" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Save Evaluation
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>Back
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

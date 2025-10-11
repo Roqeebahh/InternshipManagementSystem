@@ -1,0 +1,107 @@
+﻿@model InternshipManagementSystem.Models.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-tachometer-alt me-2"></i>Welcome, @User.Identity.Name!</h2>
+        <p class="text-muted">Here's an overview of your internship progress.</p>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Logs</h5>
+                <h2 class="mb-0">@Model.TotalLogs</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Evaluations</h5>
+                <h2 class="mb-0">@Model.TotalEvaluations</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5 class="card-title">Projects</h5>
+                <h2 class="mb-0">@Model.TotalProjects</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h5 class="card-title">Avg Score</h5>
+                <h2 class="mb-0">@Model.AverageScore.ToString("F1")</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-book me-2"></i>Recent Daily Logs</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentLogs.Any())
+                {
+                    <div class="list-group list-group-flush">
+                        @foreach (var log in Model.RecentLogs)
+                        {
+                            <div class="list-group-item">
+                                <h6>@log.LogDate.ToString("MMM dd, yyyy")</h6>
+                                <p class="text-muted">@(log.Activity.Length > 80 ? log.Activity.Substring(0, 80) + "..." : log.Activity)</p>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No logs yet. <a asp-controller="Logbook" asp-action="Create">Create your first log</a>!</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-star me-2"></i>Recent Evaluations</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentEvaluations.Any())
+                {
+                    <div class="list-group list-group-flush">
+                        @foreach (var eval in Model.RecentEvaluations)
+                        {
+                            <div class="list-group-item">
+                                <h6>@eval.EvaluationDate.ToString("MMM dd, yyyy")</h6>
+                                <p class="mb-1">By: @eval.Supervisor?.FullName</p>
+                                <span class="badge bg-primary">P: @eval.Punctuality</span>
+                                <span class="badge bg-success">T: @eval.Teamwork</span>
+                                <span class="badge bg-info">S: @eval.SkillLevel</span>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No evaluations yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

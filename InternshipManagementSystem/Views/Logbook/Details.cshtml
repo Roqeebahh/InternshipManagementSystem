@@ -1,0 +1,11 @@
+﻿@model InternshipManagementSystem.Models.DailyLog
+
+@{
+    ViewData["Title"] = "Log Entry Details";
+}
+
+<h2>Log Entry Details</h2>
+
+<p><strong>Date:</strong> @Model.LogDate.ToShortDateString()</p>
+<p><strong>Description:</strong></p>
+<p>@Model.Activity</p>

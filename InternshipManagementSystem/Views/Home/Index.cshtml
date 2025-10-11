@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-section bg-primary text-white py-5 mb-5 rounded">
+    <div class="container text-center">
+        <h1 class="display-4"><i class="fas fa-graduation-cap me-3"></i>Internship Management System</h1>
+        <p class="lead">Streamline your internship program with comprehensive tracking and evaluation tools</p>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="mt-4">
+                <a asp-controller="Account" asp-action="Login" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-user-plus me-2"></i>Register as Intern
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-book fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Daily Logging</h5>
+                <p class="card-text">Track daily activities and learning experiences throughout your internship journey.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-star fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Performance Evaluation</h5>
+                <p class="card-text">Get evaluated by supervisors on key performance metrics and receive valuable feedback.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-chart-bar fa-3x text-info mb-3"></i>
+                <h5 class="card-title">Progress Tracking</h5>
+                <p class="card-text">Monitor your progress with comprehensive dashboards and detailed reports.</p>
+            </div>
+        </div>
+    </div>
+</div>

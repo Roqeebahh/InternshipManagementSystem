@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Evaluation>
+@{
+    ViewData["Title"] = "My Evaluations";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-star me-2"></i>My Evaluations</h2>
+        <p class="text-muted">View your performance evaluations from supervisors.</p>
+    </div>
+</div>
+
+@if (Model.Any())
+{
+    <div class="row">
+        @foreach (var eval in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">@eval.EvaluationDate.ToString("MMMM dd, yyyy")</h5>
+                        <small>Evaluated by: @eval.Supervisor?.FullName</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <div class="text-center">
+                                    <h3 class="text-primary">@eval.Punctuality</h3>
+                                    <p class="mb-0 text-muted">Punctuality</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-center">
+                                    <h3 class="text-success">@eval.Teamwork</h3>
+                                    <p class="mb-0 text-muted">Teamwork</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-center">
+                                    <h3 class="text-info">@eval.SkillLevel</h3>
+                                    <p class="mb-0 text-muted">Skill Level</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-3">
+                            <h4 class="text-warning">Average: @(((eval.Punctuality + eval.Teamwork + eval.SkillLevel) / 3.0).ToString("F1"))/10</h4>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(eval.Comments))
+                        {
+                            <div class="alert alert-light">
+                                <strong>Comments:</strong>
+                                <p class="mb-0">@eval.Comments</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body text-center py-5">
+            <i class="fas fa-star fa-4x text-muted mb-3"></i>
+            <h4>No evaluations yet</h4>
+            <p class="text-muted">Your supervisors haven't evaluated you yet. Keep up the good work!</p>
+        </div>
+    </div>
+}

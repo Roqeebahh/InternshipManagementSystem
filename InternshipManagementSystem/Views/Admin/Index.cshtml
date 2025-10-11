@@ -1,0 +1,107 @@
+﻿@model InternshipManagementSystem.Models.ViewModels.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</h2>
+        <p class="text-muted">Overview of the internship management system</p>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Interns</h5>
+                <h2 class="mb-0">@Model.TotalInterns</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Active Interns</h5>
+                <h2 class="mb-0">@Model.ActiveInterns</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Logs</h5>
+                <h2 class="mb-0">@Model.TotalLogs</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h5 class="card-title">Evaluations</h5>
+                <h2 class="mb-0">@Model.TotalEvaluations</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-users me-2"></i>Recent Interns</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentInterns.Any())
+                {
+                    <div class="list-group list-group-flush">
+                        @foreach (var intern in Model.RecentInterns)
+                        {
+                            <div class="list-group-item">
+                                <h6>@intern.FullName</h6>
+                                <p class="mb-1 text-muted">@intern.Institution</p>
+                                <small class="text-muted">@intern.CourseOfStudy</small>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No interns registered yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Recent Activity</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.RecentLogs.Any())
+                {
+                    <div class="list-group list-group-flush">
+                        @foreach (var log in Model.RecentLogs)
+                        {
+                            <div class="list-group-item">
+                                <h6>@log.Intern?.FullName</h6>
+                                <p class="mb-1 text-muted">@(log.Activity.Length > 60 ? log.Activity.Substring(0, 60) + "..." : log.Activity)</p>
+                                <small class="text-muted">@log.LogDate.ToString("MMM dd, yyyy")</small>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No recent activity.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

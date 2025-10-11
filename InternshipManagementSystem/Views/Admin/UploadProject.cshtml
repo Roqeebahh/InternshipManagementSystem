@@ -1,0 +1,12 @@
+﻿@model InternshipManagementSystem.Models.Project
+
+<h2>Upload Project File</h2>
+
+<form asp-action="UploadProject" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label for="file">Select File</label>
+        <input type="file" name="file" class="form-control" />
+    </div>
+    <input type="hidden" asp-for="InternId" value="@User.Identity.Name" />
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>

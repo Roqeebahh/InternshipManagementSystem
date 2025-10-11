@@ -1,0 +1,62 @@
+﻿@model Intern
+@{
+    ViewData["Title"] = "Intern Details";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-user me-2"></i>@Model.FullName</h2>
+        <p class="text-muted">Detailed intern profile and activity history</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Personal Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>Phone:</strong> @Model.PhoneNumber</p>
+                <p><strong>Institution:</strong> @Model.Institution</p>
+                <p><strong>Course:</strong> @Model.CourseOfStudy</p>
+                <p><strong>Duration:</strong> @Model.StartDate.ToString("MMM dd, yyyy") - @Model.EndDate.ToString("MMM dd, yyyy")</p>
+                <p>
+                    <strong>Status:</strong>
+                    <span class="badge bg-@(Model.IsActive ? "success" : "secondary")">
+                        @(Model.IsActive ? "Active" : "Inactive")
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Statistics</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Total Logs:</strong> @Model.DailyLogs.Count</p>
+                <p><strong>Total Evaluations:</strong> @Model.Evaluations.Count</p>
+                <p><strong>Total Projects:</strong> @Model.Projects.Count</p>
+                @if (Model.Evaluations.Any())
+                {
+                    <p><strong>Average Score:</strong> @(Model.Evaluations.Average(e => (e.Punctuality + e.Teamwork + e.SkillLevel) / 3.0).ToString("F1"))/10</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <a asp-action="GenerateReport" asp-route-internId="@Model.InternId" class="btn btn-success">
+            <i class="fas fa-file-pdf me-1"></i>Generate Report
+        </a>
+        <a asp-action="Interns" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-1"></i>Back to Interns
+        </a>
+    </div>
+</div>
