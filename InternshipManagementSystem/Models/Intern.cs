@@ -46,7 +46,6 @@ namespace InternshipManagementSystem.Models
 
         public bool IsActive { get; set; } = true;
 
-        // Navigation properties
         public virtual ICollection<DailyLog> DailyLogs { get; set; }
         public virtual ICollection<Evaluation> Evaluations { get; set; }
         public virtual ICollection<Project> Projects { get; set; }

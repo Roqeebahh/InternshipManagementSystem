@@ -17,7 +17,6 @@ namespace InternshipManagementSystem.Services
 
                 document.Open();
 
-                // Title
                 var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY);
                 var title = new Paragraph("INTERNSHIP COMPLETION REPORT", titleFont)
                 {
@@ -26,7 +25,6 @@ namespace InternshipManagementSystem.Services
                 };
                 document.Add(title);
 
-                // Intern Information
                 var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK);
                 var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
 
@@ -45,7 +43,6 @@ namespace InternshipManagementSystem.Services
 
                 document.Add(internTable);
 
-                // Performance Summary
                 if (intern.Evaluations.Any())
                 {
                     document.Add(new Paragraph("PERFORMANCE SUMMARY", headerFont) { SpacingAfter = 10 });
@@ -67,7 +64,6 @@ namespace InternshipManagementSystem.Services
                     document.Add(perfTable);
                 }
 
-                // Activity Summary
                 document.Add(new Paragraph("ACTIVITY SUMMARY", headerFont) { SpacingAfter = 10 });
 
                 var activityTable = new PdfPTable(2) { WidthPercentage = 100, SpacingAfter = 15 };
@@ -86,7 +82,6 @@ namespace InternshipManagementSystem.Services
 
                 document.Add(activityTable);
 
-                // Recent Evaluations
                 if (intern.Evaluations.Any())
                 {
                     document.Add(new Paragraph("RECENT EVALUATIONS", headerFont) { SpacingAfter = 10 });
@@ -94,7 +89,6 @@ namespace InternshipManagementSystem.Services
                     var evalTable = new PdfPTable(5) { WidthPercentage = 100, SpacingAfter = 15 };
                     evalTable.SetWidths(new float[] { 20, 15, 15, 15, 35 });
 
-                    // Header row
                     evalTable.AddCell(new PdfPCell(new Phrase("Date", headerFont)) { BackgroundColor = BaseColor.LIGHT_GRAY });
                     evalTable.AddCell(new PdfPCell(new Phrase("Punctuality", headerFont)) { BackgroundColor = BaseColor.LIGHT_GRAY });
                     evalTable.AddCell(new PdfPCell(new Phrase("Teamwork", headerFont)) { BackgroundColor = BaseColor.LIGHT_GRAY });
@@ -113,7 +107,6 @@ namespace InternshipManagementSystem.Services
                     document.Add(evalTable);
                 }
 
-                // Footer
                 document.Add(new Paragraph($"\nReport generated on {DateTime.Now:MMM dd, yyyy}",
                     FontFactory.GetFont(FontFactory.HELVETICA_OBLIQUE, 8, BaseColor.GRAY))
                 {
@@ -136,7 +129,6 @@ namespace InternshipManagementSystem.Services
 
             document.Open();
 
-            // Title
             var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY);
             var title = new Paragraph("DAILY LOGS REPORT", titleFont)
             {
@@ -145,7 +137,6 @@ namespace InternshipManagementSystem.Services
             };
             document.Add(title);
 
-            // Date range
             if (startDate.HasValue || endDate.HasValue)
             {
                 var dateRange = "Period: ";
@@ -160,14 +151,12 @@ namespace InternshipManagementSystem.Services
                 });
             }
 
-            // Logs table
             var logsTable = new PdfPTable(4) { WidthPercentage = 100 };
             logsTable.SetWidths(new float[] { 20, 25, 15, 40 });
 
             var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, BaseColor.WHITE);
             var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 9, BaseColor.BLACK);
 
-            // Header row
             logsTable.AddCell(new PdfPCell(new Phrase("Date", headerFont))
             {
                 BackgroundColor = BaseColor.DARK_GRAY,
@@ -199,14 +188,12 @@ namespace InternshipManagementSystem.Services
 
             document.Add(logsTable);
 
-            // Summary
             document.Add(new Paragraph($"\nTotal Logs: {logs.Count}",
                 FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, BaseColor.BLACK))
             {
                 SpacingBefore = 20
             });
 
-            // Footer
             document.Add(new Paragraph($"\nReport generated on {DateTime.Now:MMM dd, yyyy HH:mm}",
                 FontFactory.GetFont(FontFactory.HELVETICA_OBLIQUE, 8, BaseColor.GRAY))
             {
@@ -228,7 +215,6 @@ namespace InternshipManagementSystem.Services
 
             document.Open();
 
-            // Title
             var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY);
             var title = new Paragraph("EVALUATIONS REPORT", titleFont)
             {
@@ -237,14 +223,12 @@ namespace InternshipManagementSystem.Services
             };
             document.Add(title);
 
-            // Evaluations table
             var evalTable = new PdfPTable(7) { WidthPercentage = 100 };
             evalTable.SetWidths(new float[] { 20, 20, 15, 10, 10, 10, 25 });
 
             var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 9, BaseColor.WHITE);
             var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 8, BaseColor.BLACK);
 
-            // Header row
             var headers = new[] { "Date", "Intern Name", "Supervisor", "Punctuality", "Teamwork", "Skill Level", "Comments" };
             foreach (var header in headers)
             {
@@ -268,7 +252,6 @@ namespace InternshipManagementSystem.Services
 
             document.Add(evalTable);
 
-            // Summary Statistics
             if (evaluations.Any())
             {
                 document.Add(new Paragraph("\nSUMMARY STATISTICS",
@@ -289,7 +272,6 @@ namespace InternshipManagementSystem.Services
                 document.Add(new Paragraph($"Overall Average: {(avgPunctuality + avgTeamwork + avgSkillLevel) / 3:F1}/10", normalFont));
             }
 
-            // Footer
             document.Add(new Paragraph($"\nReport generated on {DateTime.Now:MMM dd, yyyy HH:mm}",
                 FontFactory.GetFont(FontFactory.HELVETICA_OBLIQUE, 8, BaseColor.GRAY))
             {

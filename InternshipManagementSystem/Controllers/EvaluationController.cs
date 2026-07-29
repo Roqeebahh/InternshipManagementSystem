@@ -8,7 +8,6 @@ using System.Security.Claims;
 
 namespace InternshipManagementSystem.Controllers
 {
-    [Authorize(Roles = "Admin,Supervisor")]
     public class EvaluationController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -18,6 +17,7 @@ namespace InternshipManagementSystem.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin,Supervisor")]
         public async Task<IActionResult> Index()
         {
             var evaluations = await _context.Evaluations
@@ -29,6 +29,7 @@ namespace InternshipManagementSystem.Controllers
             return View(evaluations);
         }
 
+        [Authorize(Roles = "Admin,Supervisor")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -39,6 +40,7 @@ namespace InternshipManagementSystem.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin,Supervisor")]
         [HttpPost]
         public async Task<IActionResult> Create(Evaluation model)
         {
@@ -74,22 +76,36 @@ namespace InternshipManagementSystem.Controllers
             return View(evaluation);
         }
 
-        [HttpGet]
+
         public async Task<IActionResult> InternEvaluations()
         {
-            if (User.IsInRole("Intern"))
+           
+            if (!User.Identity.IsAuthenticated)
             {
-                var internId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-                var evaluations = await _context.Evaluations
-                    .Include(e => e.Supervisor)
-                    .Where(e => e.InternId == internId)
-                    .OrderByDescending(e => e.EvaluationDate)
-                    .ToListAsync();
-
-                return View(evaluations);
+                return RedirectToAction("Login", "Account");
             }
 
-            return Forbid();
+            
+            if (!User.IsInRole("Intern"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var internIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(internIdString) || !int.TryParse(internIdString, out int internId))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var evaluations = await _context.Evaluations
+                .Include(e => e.Supervisor)
+                .Where(e => e.InternId == internId)
+                .OrderByDescending(e => e.EvaluationDate)
+                .ToListAsync();
+
+            return View(evaluations);
         }
+
     }
 }

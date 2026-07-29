@@ -29,7 +29,6 @@ namespace InternshipManagementSystem.Models
 
         public DateTime EvaluationDate { get; set; } = DateTime.Now;
 
-        // Navigation properties
         public virtual Intern? Intern { get; set; }
         public virtual AdminUser? Supervisor { get; set; }
     }

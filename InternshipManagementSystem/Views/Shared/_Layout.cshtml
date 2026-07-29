@@ -70,6 +70,11 @@
                                         <i class="fas fa-book me-1"></i>All Logs
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Admin" asp-action="AllProjects">
+                                        <i class="fas fa-project-diagram me-1"></i>Projects
+                                    </a>
+                                </li>
                             }
                         }
                     </ul>
@@ -109,7 +114,7 @@
         </nav>
     </header>
 
-    <main class="container mt-4">
+    <main class="container mt-4 mb-5">
         @if (TempData["Success"] != null)
         {
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -129,7 +134,7 @@
         @RenderBody()
     </main>
 
-    <footer class="bg-light mt-5 py-4">
+    <footer class="bg-light mt-5 py-4 border-top">
         <div class="container">
             <div class="text-center text-muted">
                 <p>&copy; 2024 Internship Management System. All rights reserved.</p>

@@ -20,7 +20,6 @@ namespace InternshipManagementSystem.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure relationships
             modelBuilder.Entity<DailyLog>()
                 .HasOne(d => d.Intern)
                 .WithMany(i => i.DailyLogs)
@@ -45,7 +44,6 @@ namespace InternshipManagementSystem.Data
                 .HasForeignKey(p => p.InternId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Seed data
             modelBuilder.Entity<AdminUser>().HasData
             (
                 new AdminUser

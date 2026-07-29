@@ -64,7 +64,6 @@ namespace InternshipManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check if email already exists
                 if (_context.Interns.Any(i => i.Email == model.Email))
                 {
                     ModelState.AddModelError("Email", "Email already registered.");
@@ -106,7 +105,6 @@ namespace InternshipManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check if email already exists
                 if (_context.AdminUsers.Any(a => a.Email == model.Email))
                 {
                     ModelState.AddModelError("Email", "Email already registered.");

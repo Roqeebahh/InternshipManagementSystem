@@ -26,7 +26,6 @@ namespace InternshipManagementSystem.Models
         [StringLength(100)]
         public string? FileName { get; set; }
 
-        // Navigation property
         public virtual Intern? Intern { get; set; }
     }
 }
